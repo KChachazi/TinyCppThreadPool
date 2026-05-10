@@ -35,6 +35,7 @@
 - [document/01.md](document/01.md)
 - [document/02.md](document/02.md)
 - [document/03.md](document/03.md)
+- [document/04.md](document/04.md)
 
 ## 代码审查优先级
 
@@ -59,6 +60,9 @@
 - [document/01.md](document/01.md)
 - [document/02.md](document/02.md)
 - [document/03.md](document/03.md)
+- [document/04.md](document/04.md)
+- [document/05.md](document/05.md)
+- [document/06.md](document/06.md)
 
 在继续开发后，可能会包含更多代码文件，主要在include和src文件夹下寻找。
 
@@ -87,3 +91,50 @@
 - [document/01.md](document/01.md)
 - [document/02.md](document/02.md)
 - [document/03.md](document/03.md)
+- [document/04.md](document/04.md)
+- [document/05.md](document/05.md)
+- [document/06.md](document/06.md)
+
+## README 摘录
+
+# TinyCppThreadPool
+
+从零构建一个具备工程可用性的 C++ 线程池，系统性掌握并发编程核心能力。
+
+## 关于这个项目
+
+这不是一个直接拿来用的库，而是一条完整的学习路径：从线程基础开始，逐步实现一个能稳定工作的线程池，并通过可观测实验理解性能与正确性的权衡。
+
+学完整条路线之后，能力目标是：
+
+- 能独立理解和调试并发代码
+- 知道线程池为什么这么设计，而不只是会用它
+- 能通过实验解释性能变化的原因
+
+## 学习路线
+
+| # | 主题 |
+|---|------|
+| 01 | [线程生命周期：从创建到收尾](document/01.md) |
+| 02 | [数据竞争实验：为什么 `counter++` 会丢](document/02.md) |
+| 03 | [锁的工程化使用与死锁规避](document/03.md) |
+| 04 | [任务抽象与结果返回](document/04.md) |
+| 05 | 阻塞队列设计 |
+| 06 | 线程池 V1（基础可用） |
+| 07 | 线程池 V2（生命周期管理） |
+| 08 | 线程池 V3（工程优化） |
+| 09 | 综合复盘与扩展 |
+
+已完成的章节都在 `document/` 目录下，标题与表格一致。
+
+## 推进方式
+
+每个阶段按以下循环推进：
+
+1. 明确当前目标与需求
+2. 自主实现
+3. AI 辅助分析与订正
+4. 修复与优化
+5. 验证通过后进入下一阶段
+
+AI 用于辅助学习，而非替代实现，具体用于：解释并发问题（数据竞争、死锁）、分析性能瓶颈、提供测试设计建议、辅助定位 bug。

@@ -1,14 +1,14 @@
+#ifndef TEST_H
+#define TEST_H
+
 #include <iostream>
 #include <thread>
 #include <future>
 #include <chrono>
+#include <random>
 
 #include "blocking_queue.h"
-#include "test.h"
 
-int main() {
+void TestBlockingQueue();
 
-    TestBlockingQueue();
-
-    return 0;
-}
+#endif // TEST_H
