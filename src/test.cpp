@@ -130,3 +130,73 @@ void TestThreadPoolVersion1() {
     TestThreadPoolV1_feasibility();
     TestThreadPoolV1_performance();
 }
+
+void TestThreadPoolV2_feasibility() {
+    std::cout << "[V2 feasibility] - check shutdown behavior" << std::endl;
+
+    auto task = [] { return 42; };
+    ThreadPool pool(2);
+    auto future = pool.submit(task);
+    std::cout << "  submitted task, got future" << std::endl;
+
+    pool.shutdown();
+    std::cout << "  called shutdown on pool" << std::endl;
+    try {
+        auto future2 = pool.submit(task);
+        std::cout << "  ERROR: was able to submit task after shutdown!" << std::endl;
+    } catch (const std::exception& ex) {
+        std::cout << ex.what() << std::endl;
+    }
+}
+
+void TestThreadPoolV2_performance() {
+    std::cout << "[V2 performance] - steady-state behavior (300000 common tasks)" << std::endl;
+
+    ThreadPool pool(4);
+    const int numTasks = 300000;
+    int submitted = 0;
+    std::vector<std::future<int>> futures;
+
+    auto submitTask = [&pool, numTasks, &submitted, &futures]() {
+        for (int i = 0; i < numTasks; i ++) {
+            try {
+                futures.push_back(pool.submit([i] { return i * i; }));
+                submitted++;
+            } catch (const std::exception& ex) {
+                std::cout << "  ERROR: failed to submit task " << i << ": " << ex.what() << std::endl;
+                break;
+            }
+        }
+    };
+
+    std::thread submitter(submitTask);
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));  // 确保线程池启动完成
+    pool.shutdown();
+    std::cout << "  called shutdown on pool" << std::endl;
+    try {
+        pool.shutdown();
+    } catch (const std::exception& ex) {
+        std::cout << "  ERROR: failed to shutdown pool: " << ex.what() << std::endl;
+    }
+    std::cout << "  shutdown called again (should be no-op)" << std::endl;
+
+    submitter.join();
+
+    std::cout << "  submitted " << submitted << " tasks before shutdown" << std::endl;
+    bool allOk = true;
+    for (int i = 0; i < submitted; i ++) {
+        int got = futures[i].get();
+        if (got != i * i) {
+            allOk = false;
+            std::cout << "  ERROR: task " << i << " expected " << i * i << " but got " << got << std::endl;
+        }
+    }
+
+    std::cout << "  all previously submitted tasks completed: " << (allOk ? "OK" : "WRONG") << std::endl;
+}
+
+void TestThreadPoolVersion2() {
+    TestThreadPoolV2_feasibility();
+    TestThreadPoolV2_performance();
+}
