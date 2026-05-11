@@ -8,7 +8,7 @@
 
 int main() {
 
-    TestBlockingQueue();
+    TestThreadPoolVersion1();
 
     return 0;
 }

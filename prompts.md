@@ -55,16 +55,22 @@
 
 如果我让你继续看当前这个线程学习项目，默认相关文件是：
 
-- [src/main.cpp](src/main.cpp)
 - [README.md](README.md)
-- [document/01.md](document/01.md)
-- [document/02.md](document/02.md)
-- [document/03.md](document/03.md)
-- [document/04.md](document/04.md)
-- [document/05.md](document/05.md)
-- [document/06.md](document/06.md)
+- [src/main.cpp](src/main.cpp)
+- [document/](document/) 目录下的所有学习笔记（`01.md` 起，按章节递增）
 
-在继续开发后，可能会包含更多代码文件，主要在include和src文件夹下寻找。
+在继续开发后，可能会包含更多代码文件，主要在 include 和 src 文件夹下寻找。
+
+## 多端开发约定
+
+我会在多台设备上推进这个项目，所以对话经常是不连续的——每次接续时不要假设上一轮的上下文还在，请按这个顺序自己对齐进度：
+
+1. 先读 [README.md](README.md) 的学习路线表，确认章节走到哪一章。
+2. 再看 `document/` 下编号最大的那篇笔记，它代表"文档进度"。
+3. 然后看 `include/` 和 `src/` 的实际文件，确认"代码进度"——文档常常领先于代码，以实际文件为准。
+4. 用 `git log --oneline` 看最近的提交（形如 `finish ThemeN`），判断哪一章是真正收尾了的。
+
+如果发现文档和代码不一致，以代码现状为准，并先明确告诉我当前缺口在哪，再继续。
 
 ## 可直接复用的任务提示词模板
 
