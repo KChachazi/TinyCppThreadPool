@@ -10,6 +10,7 @@ int main() {
 
     TestThreadPoolVersion1();
     TestThreadPoolVersion2();
+    TestThreadPoolVersion3();
 
     return 0;
 }
